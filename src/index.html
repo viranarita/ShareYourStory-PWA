@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#343a40"/>
+
+    <link rel="shortcut icon" href="favicon.png">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <title>ShareYourStory App</title> </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to Content</a>
+
+    <header>
+      <div class="main-header container">
+        <a class="brand-name" href="#/">ShareYourStory</a>
+        <nav id="navigation-drawer" class="navigation-drawer">
+          <ul id="nav-list" class="nav-list"></ul>
+        </nav>
+        <button id="drawer-button" class="drawer-button">☰</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content"></main>
+
+    <footer class="app-footer">
+      <div class="footer-container">
+        <p class="copyright-text">
+          ShareYourStory &copy; 2025 by 
+          <a href="https://www.linkedin.com/in/viranarita" target="_blank" rel="noopener noreferrer">Savira Narita Rachman</a>
+        </p>
+        
+        <button id="notification-toggle-button">
+          Enable Notifications
+        </button>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+  </body>
+</html>

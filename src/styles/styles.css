@@ -1,0 +1,697 @@
+:root {
+  --primary-color: #ffa4a4;
+  --primary-color-dark: #e59393;
+  --secondary-accent-color: #ffbdbd;
+  --navbar-bg-color: #badfdb;
+  --page-bg-color: #fcf9ea;
+  --surface-color: #ffffff;
+  --dark-text: #000000;
+  --border-color: #e9e3d3;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --border-radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== PERBAIKAN FOOTER DIMULAI DI SINI ===== */
+.app-footer {
+  /* Hapus padding, text-align, color, dan font-size dari sini */
+  background-color: var(--navbar-bg-color);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  /* Tambahkan padding block agar ada jarak atas/bawah */
+  padding-block: 20px;
+}
+
+/* Container baru untuk Flexbox */
+.footer-container {
+  display: flex;
+  justify-content: space-between; /* Rata kiri dan kanan */
+  align-items: center; /* Sejajar vertikal */
+
+  /* Samakan dengan .container kamu */
+  padding-inline: 16px;
+  margin-inline: auto;
+  max-width: 1200px;
+}
+
+/* Style untuk teks copyright */
+.copyright-text {
+  margin: 0;
+  color: var(--dark-text);
+  font-size: 0.9rem;
+  /* Mencegah teks pindah ke bawah tombol di layar kecil */
+  flex-grow: 1;
+  text-align: left; /* Pastikan rata kiri */
+}
+/* ===== PERBAIKAN FOOTER SELESAI DI SINI ===== */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: var(--page-bg-color);
+  color: var(--dark-text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.container {
+  padding-inline: 16px;
+  margin-inline: auto;
+  max-width: 1200px;
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+  margin-bottom: 24px;
+  margin-top: 0;
+}
+
+header {
+  background-color: var(--navbar-bg-color);
+  box-shadow: var(--shadow);
+  border-bottom: 1px solid var(--border-color);
+  view-transition-name: main-header;
+  position: relative;
+  z-index: 900;
+}
+
+.main-header {
+  min-height: 70px;
+  padding-block: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--dark-text);
+}
+
+.navigation-drawer {
+  min-height: 100vh;
+  width: 250px;
+  padding: 20px;
+  background-color: var(--surface-color);
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transform: translateX(-100%);
+  transition: transform 350ms ease-in-out;
+  z-index: 9998;
+}
+
+.navigation-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-button {
+  padding: 8px;
+  border: 0;
+  background-color: transparent;
+  font-size: 28px;
+  color: var(--dark-text);
+  cursor: pointer;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-list li a {
+  padding: 8px 12px;
+  display: block;
+  color: var(--dark-text);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-list li a:hover,
+#logout-button:hover {
+  background-color: var(--primary-color);
+  font-weight: bold;
+  color: white;
+}
+
+#logout-button {
+  cursor: pointer;
+}
+
+.main-content {
+  padding-block: 24px;
+  view-transition-name: main-content;
+  position: relative;
+  z-index: 800;
+}
+
+.main-content.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+.guest-view-prompt-fullwidth {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.guest-view-prompt-fullwidth h2 {
+  margin-bottom: 16px;
+  font-size: 2rem;
+}
+
+.guest-view-prompt-fullwidth p {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+  max-width: 550px;
+  margin-inline: auto;
+}
+
+.login-prompt-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.login-prompt-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.story-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.story-item {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+
+  /* Menambahkan position relative agar tombol favorit bisa diposisikan */
+  position: relative;
+}
+
+.story-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.story-item__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.story-item__content {
+  padding: 16px;
+  /* Beri ruang di bagian bawah untuk tombol favorit */
+  padding-bottom: 60px;
+}
+
+.story-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.story-item__name {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.story-item__date {
+  font-size: 0.8rem;
+  color: var(--light-text);
+  margin-bottom: 0;
+}
+
+.story-item__description {
+  margin-bottom: 0;
+}
+
+.login-form,
+.register-form {
+  background-color: var(--surface-color);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.add-story-form {
+  background-color: var(--surface-color);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-page h3 {
+  margin-top: 24px;
+}
+
+.login-form,
+.register-FORM {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 500px;
+  margin-inline: auto;
+}
+
+.form-page-container {
+  text-align: center;
+}
+
+.form-page-container form {
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--dark-text);
+}
+
+.form-group input,
+.form-group textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--secondary-accent-color);
+}
+
+.submit-button,
+.camera-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.submit-button:hover,
+.camera-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.auth-switch a {
+  color: var(--primary-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#map-add {
+  width: 100%;
+  height: 300px;
+  margin-top: 10px;
+  border-radius: var(--border-radius);
+}
+
+.popup-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 8px;
+  border-radius: 4px 4px 0 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.feature-card {
+  background-color: var(--surface-color);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  border-top: 4px solid var(--primary-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.feature-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.feature-card h4 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  color: var(--dark-text);
+}
+
+.feature-card p {
+  color: var(--dark-text);
+  font-size: 0.95rem;
+}
+
+.camera-container {
+  margin-top: 10px;
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: #000;
+}
+
+#camera-preview {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.capture-button,
+.close-camera-button {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.capture-button:hover,
+.close-camera-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.capture-button:active,
+.close-camera-button:active {
+  transform: scale(0.95);
+}
+
+.capture-button {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border: 4px solid white;
+  background-clip: padding-box;
+}
+
+.close-camera-button {
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+}
+
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--dark-text);
+  color: white;
+  padding: 16px 24px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.toast-notification.toast--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-notification.toast--success {
+  background-color: #28a745;
+}
+
+.toast-notification.toast--error {
+  background-color: var(--primary-color);
+}
+
+.toast-notification.toast--info {
+  background-color: #17a2b8;
+}
+
+@keyframes fade-out-up {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+::view-transition-old(main-content) {
+  animation: 300ms ease-in-out both fade-out-up;
+}
+
+::view-transition-new(main-content) {
+  animation: 300ms ease-in-out both fade-in-down;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding-inline: 32px;
+  }
+  .story-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* PERBAIKAN FOOTER UNTUK LAYAR LEBIH LEBAR */
+  .footer-container {
+    padding-inline: 32px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .navigation-drawer {
+    min-height: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    position: static;
+    box-shadow: none;
+    transform: translateX(0);
+  }
+  .nav-list {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .nav-list li a {
+    display: inline-block;
+  }
+  .drawer-button {
+    display: none;
+  }
+  .story-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== CSS TAMBAHAN UNTUK TOMBOL FAVORIT (Kriteria 4) ===== */
+.favorite-button {
+  font-size: 1.5rem; /* Ukuran emoji hati */
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  /* Posisi di pojok kanan bawah */
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.favorite-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.favorite-button:disabled {
+  background-color: var(--primary-color-dark);
+  color: white;
+  border-color: var(--primary-color-dark);
+  cursor: not-allowed;
+  transform: scale(1);
+}
+
+/* ===== CSS TAMBAHAN UNTUK TOMBOL HAPUS (Kriteria 4) ===== */
+.delete-button {
+  /* Posisi di pojok kanan bawah, mirip tombol favorit */
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  /* Style tombol */
+  background-color: var(--primary-color); /* Warna merah (bahaya) */
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.delete-button:hover {
+  background-color: var(--primary-color-dark);
+  transform: scale(1.05);
+}
+
+/* ===== CSS TAMBAHAN UNTUK TOMBOL NOTIFIKASI (Kriteria 2) ===== */
+#notification-toggle-button {
+  /* Sembunyikan dulu, JS akan menampilkannya */
+  display: none;
+
+  /* Style Tombol */
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+
+  /* PERBAIKAN FOOTER: Hapus margin-top */
+  margin-top: 0;
+  min-width: 180px; /* Agar lebar tombol tidak berubah-ubah */
+  flex-shrink: 0; /* Mencegah tombol mengecil di layar sempit */
+}
+
+/* Style saat status "Enable" */
+#notification-toggle-button.state-enable {
+  background-color: #28a745; /* Hijau */
+  color: white;
+}
+#notification-toggle-button.state-enable:hover {
+  background-color: #218838;
+  transform: scale(1.02);
+}
+
+/* Style saat status "Disable" */
+#notification-toggle-button.state-disable {
+  background-color: #aaa; /* Abu-abu */
+  color: #333;
+}
+#notification-toggle-button.state-disable:hover {
+  background-color: #888;
+  transform: scale(1.02);
+}
+
+.search-container {
+  margin-bottom: 24px; /* Atur jarak di sini */
+}
