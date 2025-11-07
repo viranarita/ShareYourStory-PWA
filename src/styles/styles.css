@@ -236,8 +236,6 @@ header {
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-
-  /* Menambahkan position relative agar tombol favorit bisa diposisikan */
   position: relative;
 }
 
@@ -255,7 +253,6 @@ header {
 
 .story-item__content {
   padding: 16px;
-  /* Beri ruang di bagian bawah untuk tombol favorit */
   padding-bottom: 60px;
 }
 
@@ -591,9 +588,8 @@ input[type="file"] {
   }
 }
 
-/* ===== CSS TAMBAHAN UNTUK TOMBOL FAVORIT (Kriteria 4) ===== */
 .favorite-button {
-  font-size: 1.5rem; /* Ukuran emoji hati */
+  font-size: 1.5rem;
   background-color: transparent;
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
@@ -602,7 +598,6 @@ input[type="file"] {
   border-radius: 50%;
   cursor: pointer;
 
-  /* Posisi di pojok kanan bawah */
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -628,15 +623,12 @@ input[type="file"] {
   transform: scale(1);
 }
 
-/* ===== CSS TAMBAHAN UNTUK TOMBOL HAPUS (Kriteria 4) ===== */
 .delete-button {
-  /* Posisi di pojok kanan bawah, mirip tombol favorit */
   position: absolute;
   bottom: 16px;
   right: 16px;
 
-  /* Style tombol */
-  background-color: var(--primary-color); /* Warna merah (bahaya) */
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: var(--border-radius);
@@ -652,12 +644,9 @@ input[type="file"] {
   transform: scale(1.05);
 }
 
-/* ===== CSS TAMBAHAN UNTUK TOMBOL NOTIFIKASI (Kriteria 2) ===== */
 #notification-toggle-button {
-  /* Sembunyikan dulu, JS akan menampilkannya */
   display: none;
 
-  /* Style Tombol */
   padding: 10px 16px;
   border: none;
   border-radius: var(--border-radius);
@@ -666,15 +655,13 @@ input[type="file"] {
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
 
-  /* PERBAIKAN FOOTER: Hapus margin-top */
   margin-top: 0;
-  min-width: 180px; /* Agar lebar tombol tidak berubah-ubah */
-  flex-shrink: 0; /* Mencegah tombol mengecil di layar sempit */
+  min-width: 180px;
+  flex-shrink: 0;
 }
 
-/* Style saat status "Enable" */
 #notification-toggle-button.state-enable {
-  background-color: #28a745; /* Hijau */
+  background-color: #28a745;
   color: white;
 }
 #notification-toggle-button.state-enable:hover {
@@ -682,9 +669,8 @@ input[type="file"] {
   transform: scale(1.02);
 }
 
-/* Style saat status "Disable" */
 #notification-toggle-button.state-disable {
-  background-color: #aaa; /* Abu-abu */
+  background-color: #aaa;
   color: #333;
 }
 #notification-toggle-button.state-disable:hover {
@@ -693,5 +679,5 @@ input[type="file"] {
 }
 
 .search-container {
-  margin-bottom: 24px; /* Atur jarak di sini */
+  margin-bottom: 24px;
 }

@@ -6,7 +6,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
-  entry: './src/scripts/index.js', // ✅ Entry utama kamu
+  entry: './src/scripts/index.js',
   output: {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -21,22 +21,18 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    // ✅ Generate index.html otomatis (hindari konflik)
+   
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
     }),
 
-    // ✅ Copy hanya file penting lain
     new CopyWebpackPlugin({
       patterns: [
-        // copy service worker
         { from: 'src/service-worker.js', to: '' },
 
-        // copy favicon
         { from: 'src/public/favicon.png', to: '' },
 
-        // copy folder images
         { from: 'src/public/images', to: 'images' },
       ],
     }),

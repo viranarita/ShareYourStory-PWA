@@ -65,7 +65,6 @@ class HomePage {
     }
 
     stories.forEach((story) => {
-      // Fungsi _createStoryElement sekarang sudah menyertakan tombol favorit
       const storyElement = this._createStoryElement(story);
       storyListContainer.appendChild(storyElement);
 
@@ -93,13 +92,11 @@ class HomePage {
     contentWrapper.innerHTML = `<div class="container"><p class="stories-empty">❌ Gagal memuat data: ${message}</p></div>`;
   }
 
-  // ===== FUNGSI INI SUDAH DIPERBAIKI =====
   _createStoryElement(story) {
     const storyElement = document.createElement('article');
     storyElement.classList.add('story-item');
     storyElement.id = `story-${story.id}`;
     
-    // 1. Menambahkan elemen tombol favorit ke HTML
     storyElement.innerHTML = `
       <img class="story-item__image" src="${story.photoUrl}" alt="Gambar cerita oleh ${story.name}">
       <div class="story-item__content">
@@ -117,13 +114,9 @@ class HomePage {
         </button>
       </div>
     `;
-    
-    // 2. Menambahkan event listener untuk tombol (Fitur CREATE)
     const favoriteButton = storyElement.querySelector('.favorite-button');
     favoriteButton.addEventListener('click', async (event) => {
-      event.stopPropagation(); // Mencegah event lain ter-trigger
-      
-      // Menggunakan idb-helper untuk menyimpan cerita
+      event.stopPropagation(); 
       await IdbHelper.addFavorite(story);
       
       alert('Cerita ditambahkan ke favorit!');
@@ -133,7 +126,7 @@ class HomePage {
 
     return storyElement;
   }
-  // ======================================
+
   
   _formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };

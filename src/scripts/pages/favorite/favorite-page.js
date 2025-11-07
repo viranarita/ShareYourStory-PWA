@@ -1,10 +1,8 @@
-// src/scripts/pages/favorite/favorite-page.js
-
 import IdbHelper from '../../utils/idb-helper';
 import AuthHelper from '../../utils/auth-helper';
 
 class FavoritePage {
-  #allFavoriteStories = []; // Simpan data asli di sini
+  #allFavoriteStories = [];
 
   async render() {
     return `
@@ -22,7 +20,6 @@ class FavoritePage {
   }
 
   async afterRender() {
-    // Cek jika user login
     if (!AuthHelper.isAuthenticated()) {
       const storyListContainer = document.querySelector('#story-list');
       storyListContainer.innerHTML = `
@@ -35,44 +32,33 @@ class FavoritePage {
       return;
     }
 
-    // Ambil data dari IndexedDB (READ)
-    // 1. Simpan data asli ke variabel private
     this.#allFavoriteStories = await IdbHelper.getAllFavorites();
     
-    // 2. Tampilkan semua cerita saat pertama kali dimuat
     this._displayStories(this.#allFavoriteStories);
 
-    // 3. Tambahkan listener untuk search bar
     const searchInput = document.querySelector('#search-favorite');
     searchInput.addEventListener('input', (event) => {
       const query = event.target.value.toLowerCase();
       this._performSearch(query);
     });
-    
-    // === KODE DUPLIKAT DIHAPUS DARI SINI ===
   }
 
-  // --- FUNGSI BARU UNTUK SEARCH ---
   _performSearch(query) {
     let filteredStories = this.#allFavoriteStories;
 
-    // Jika ada query, filter datanya
     if (query) {
       filteredStories = this.#allFavoriteStories.filter(story => 
         story.name.toLowerCase().includes(query) || 
         story.description.toLowerCase().includes(query)
       );
     }
-    
-    // Tampilkan hasil filter
+
     this._displayStories(filteredStories);
   }
 
-  // --- FUNGSI BARU UNTUK MENAMPILKAN CERITA ---
-  // (Ini adalah kode duplikat yang kamu pindahkan)
   _displayStories(stories) {
     const storyListContainer = document.querySelector('#story-list');
-    storyListContainer.innerHTML = ''; // Kosongkan dulu
+    storyListContainer.innerHTML = '';
 
     if (stories.length === 0) {
       storyListContainer.innerHTML = '<p class="stories-empty">Anda belum memiliki cerita favorit atau tidak ada hasil pencarian.</p>';
@@ -85,7 +71,6 @@ class FavoritePage {
     });
   }
 
-  // Fungsi ini membuat kartu cerita, tapi dengan tombol "Hapus"
   _createStoryElement(story) {
     const storyElement = document.createElement('article');
     storyElement.classList.add('story-item');
@@ -109,18 +94,14 @@ class FavoritePage {
       </div>
     `;
 
-    // Tambahkan event listener untuk tombol Hapus (DELETE)
     const deleteButton = storyElement.querySelector('.delete-button');
     deleteButton.addEventListener('click', async (event) => {
       event.stopPropagation();
       
-      // 1. Hapus dari IndexedDB
       await IdbHelper.deleteFavorite(story.id);
       
-      // 2. Hapus dari data di memori
       this.#allFavoriteStories = this.#allFavoriteStories.filter(s => s.id !== story.id);
       
-      // 3. Tampilkan ulang daftar (atau cari ulang jika ada query)
       const query = document.querySelector('#search-favorite').value.toLowerCase();
       this._performSearch(query);
 

@@ -12,7 +12,7 @@ self.addEventListener('push', (event) => {
       icon: data.icon || '/icons/icon-192x192.png',
       badge: '/icons/badge.png',
       data: {
-        url: data.url || '/', // bisa digunakan saat klik notifikasi
+        url: data.url || '/', 
       },
     };
   

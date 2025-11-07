@@ -87,9 +87,6 @@ export default class AddStoryPage {
       submitButton.disabled = true;
       submitButton.innerText = 'Mengirim...';
 
-      // --- INI LOGIKA BARU (Kriteria 4 Advanced) ---
-      
-      // Siapkan data untuk kedua skenario
       const formData = new FormData();
       formData.append('description', description);
       formData.append('photo', photo);
@@ -99,13 +96,10 @@ export default class AddStoryPage {
       }
       
       try {
-        // 1. Selalu coba kirim ke API dulu
         this._showFeedback('Mencoba mengirim cerita...', 'info');
-        const response = await addNewStory(formData); // Ini akan error jika offline
-
-        // 2. Jika BERHASIL (Online)
+        const response = await addNewStory(formData);
         if (response.error) {
-          throw new Error(response.message); // Jika API mengembalikan error
+          throw new Error(response.message);
         }
         
         this._showFeedback('Cerita berhasil ditambahkan! (Online)', 'success');
@@ -114,18 +108,15 @@ export default class AddStoryPage {
         }, 2000);
 
       } catch (error) {
-        // 3. Jika GAGAL (Offline atau server error)
         console.error('Gagal mengirim ke API, menyimpan ke Outbox:', error.message);
         this._showFeedback('Gagal mengirim. Cerita disimpan di Outbox.', 'info');
         
-        // Simpan data mentah ke IndexedDB
         const storyData = { description, photo, lat, lon };
         await IdbHelper.addStoryToOutbox(storyData);
         
         this._showFeedback('Cerita akan dikirim otomatis saat kembali online.', 'success');
         addStoryForm.reset();
       }
-      // --- BATAS LOGIKA BARU ---
 
       submitButton.disabled = false;
       submitButton.innerText = 'Bagikan Cerita';

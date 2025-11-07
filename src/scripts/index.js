@@ -22,7 +22,6 @@ if ('serviceWorker' in navigator) {
       .then((registration) => {
         console.log('[SW] registered:', registration);
 
-        // Jika ada update SW baru
         if (registration.waiting) {
           console.log('[SW] waiting to activate...');
         }
