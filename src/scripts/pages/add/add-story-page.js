@@ -29,7 +29,7 @@ export default class AddStoryPage {
           <canvas id="photo-canvas" style="display: none;"></canvas>
 
           <div class="form-group">
-            <label>Pilih Lokasi di Peta:</label>
+            <label for="map-add">Pilih Lokasi di Peta:</label>
             <div id="map-add"></div>
             <input type="hidden" id="latitude" name="lat">
             <input type="hidden" id="longitude" name="lon">

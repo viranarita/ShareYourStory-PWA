@@ -1,13 +1,11 @@
-/* eslint-disable no-restricted-globals */
 const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `static-cache-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-cache-${CACHE_VERSION}`;
 
-// Aset App Shell yang akan di-pre-cache
 const ASSETS = [
   './',
   './index.html',
-//   './styles/styles.css', // (Benar, dikomen karena ini mode dev)
+//   './styles/styles.css', //
   './app.bundle.js',
   './favicon.png',
   './manifest.json',
@@ -15,7 +13,12 @@ const ASSETS = [
   './images/icon-512x512.png',
   './images/icon-maskable.png',
   './images/screenshot-mobile.png',
-  './images/screenshot-desktop.png'
+  './images/screenshot-desktop.png',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
 ];
 
 self.addEventListener('install', (event) => {

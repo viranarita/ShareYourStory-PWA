@@ -120,7 +120,6 @@ class App {
 
 const VAPID_PUBLIC_KEY = 'BC7BY5Cs7SDe_4LGAAWeYyQA1Piu84JKAkYzAV2bG7egw_a6uMWHWqXxGkDxzovLJNXlaegzWoH6ohtnfTFvRsI';
 
-// Helper function untuk mengubah VAPID key
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
@@ -132,14 +131,12 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-// Fungsi untuk menginisialisasi tombol
 async function initNotificationToggleButton() {
   const toggleButton = document.getElementById('notification-toggle-button');
   if (!toggleButton) return;
-
   if (!AuthHelper.isAuthenticated()) {
     toggleButton.style.display = 'none'; // Sembunyikan tombol jika belum login
-    return; // Hentikan fungsi
+    return;
   }
 
   const registration = await navigator.serviceWorker.ready;
@@ -148,28 +145,35 @@ async function initNotificationToggleButton() {
   // Atur Teks dan Class saat halaman dimuat
   if (existingSubscription) {
     toggleButton.textContent = 'Disable Notifications';
-    toggleButton.classList.add('state-disable'); // Tambah class
-    toggleButton.classList.remove('state-enable'); // Hapus class
+    toggleButton.classList.add('state-disable');
+    toggleButton.classList.remove('state-enable');
   } else {
     toggleButton.textContent = 'Enable Notifications';
-    toggleButton.classList.add('state-enable'); // Tambah class
-    toggleButton.classList.remove('state-disable'); // Hapus class
+    toggleButton.classList.add('state-enable');
+    toggleButton.classList.remove('state-disable');
   }
-  toggleButton.style.display = 'block'; // Tampilkan tombolnya
+  toggleButton.style.display = 'block';
 
   toggleButton.addEventListener('click', async () => {
     // Cek berdasarkan class, bukan teks (lebih aman)
     if (toggleButton.classList.contains('state-enable')) {
-      // Proses Subscribe
+      
+      // 1. Minta izin DULU saat tombol diklik
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        console.warn('Notification permission denied.');
+        alert('Anda harus mengizinkan notifikasi untuk mengaktifkannya.');
+        return;
+      }
+
+      // 2. Baru lakukan subscribe jika izin diberikan
       try {
         const subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
         });
         console.log('Subscribed!', subscription);
-        // TODO: Kirim subscription object ini ke server kamu
         
-        // Ganti Teks dan Class
         toggleButton.textContent = 'Disable Notifications';
         toggleButton.classList.add('state-disable');
         toggleButton.classList.remove('state-enable');
@@ -177,33 +181,28 @@ async function initNotificationToggleButton() {
         console.error('Failed to subscribe:', err);
       }
     } else {
-      // Proses Unsubscribe
       try {
         await existingSubscription.unsubscribe();
         console.log('Unsubscribed!');
-        // TODO: Kirim notifikasi unsubscribe ini ke server kamu
-        
-        // Ganti Teks dan Class
         toggleButton.textContent = 'Enable Notifications';
         toggleButton.classList.add('state-enable');
         toggleButton.classList.remove('state-disable');
-      } catch (err) {
+      } catch (err) { 
         console.error('Failed to unsubscribe:', err);
       }
     }
   });
 }
 
-async function requestNotificationPermission() {
-  const permission = await Notification.requestPermission();
-  if (permission === 'granted') {
-    console.log('Notification permission granted.');
-  } else {
-    console.warn('Notification permission denied.');
-  }
-}
+// async function requestNotificationPermission() {
+//   const permission = await Notification.requestPermission();
+//   if (permission === 'granted') {
+//     console.log('Notification permission granted.');
+//   } else {
+//     console.warn('Notification permission denied.');
+//   }
+// }
 
-// Registrasi Service Worker
 async function swRegister() {
   if (!('serviceWorker' in navigator)) {
     console.error('Service Worker API not supported.');
@@ -214,8 +213,6 @@ async function swRegister() {
     const registration = await navigator.serviceWorker.register('/service-worker.js');
     console.log('Service worker registration succeeded:', registration);
 
-    await requestNotificationPermission();
-
     initNotificationToggleButton();
 
   } catch (error) {
@@ -223,7 +220,6 @@ async function swRegister() {
   }
 }
 
-// Panggil fungsi registrasi
 swRegister();
 
 async function sendOutboxData() {
@@ -235,14 +231,12 @@ async function sendOutboxData() {
     return;
   }
 
-  // Kirim setiap cerita satu per satu
   for (const story of stories) {
     console.log('Mengirim cerita:', story.description);
     
-    // Ubah data object kembali menjadi FormData
     const formData = new FormData();
     formData.append('description', story.description);
-    formData.append('photo', story.photo); // 'photo' adalah File/Blob
+    formData.append('photo', story.photo);
     if (story.lat && story.lon) {
       formData.append('lat', story.lat);
       formData.append('lon', story.lon);
@@ -254,23 +248,19 @@ async function sendOutboxData() {
         throw new Error(response.message);
       }
       
-      // Jika berhasil dikirim, hapus dari outbox
       await IdbHelper.deleteStoryFromOutbox(story.id);
       console.log('Cerita (ID:', story.id, ') berhasil dikirim dan dihapus dari outbox.');
       
     } catch (error) {
       console.error('Gagal mengirim cerita (ID:', story.id, '). Tetap di outbox.', error.message);
-      // Jika gagal, jangan hapus, biarkan di outbox untuk dicoba lagi nanti
     }
   }
 }
 
-// Tambahkan listener saat browser kembali online
 window.addEventListener('online', () => {
   sendOutboxData();
 });
 
-// Coba kirim data saat aplikasi pertama kali dimuat (jika sedang online)
 if (navigator.onLine) {
   sendOutboxData();
 }
