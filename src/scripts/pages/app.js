@@ -185,6 +185,11 @@ async function initNotificationToggleButton() {
         
         console.log('Subscription sent to server.');
 
+        registration.showNotification('Notifikasi Diaktifkan!', {
+          body: 'Kamu sekarang akan menerima notifikasi dari Berbagi Cerita.',
+          icon: '/ShareYourStory-PWA/images/icon-192x192.png'
+        });
+
         toggleButton.textContent = 'Disable Notifications';
         toggleButton.classList.add('state-disable');
         toggleButton.classList.remove('state-enable');
@@ -208,6 +213,11 @@ async function initNotificationToggleButton() {
           await subscription.unsubscribe();
           
           console.log('Unsubscribed and subscription removed from server.');
+
+          registration.showNotification('Notifikasi Dimatikan', {
+            body: 'Kamu tidak akan lagi menerima notifikasi.',
+            icon: '/ShareYourStory-PWA/images/icon-192x192.png'
+          });
         }
         
         toggleButton.textContent = 'Enable Notifications';
