@@ -236,7 +236,12 @@ async function swRegister() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register('/ShareYourStory-PWA/service-worker.js'); 
+    const registration = await navigator.serviceWorker.register(
+      '/ShareYourStory-PWA/service-worker.js',
+      {
+        scope: '/ShareYourStory-PWA/' // <-- INI KUNCI UTAMANYA
+      }
+    );
     console.log('Service worker registration succeeded:', registration);
 
     initNotificationToggleButton();
