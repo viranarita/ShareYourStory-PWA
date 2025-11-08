@@ -2,7 +2,7 @@
     "name": "Share Your Story App",
     "short_name": "Share Your Story",
     "description": "Aplikasi PWA untuk berbagi cerita.",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#343a40",
