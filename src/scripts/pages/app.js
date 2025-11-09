@@ -185,9 +185,14 @@ async function initNotificationToggleButton() {
         
         console.log('Subscription sent to server.');
 
+        // registration.showNotification('Notifikasi Diaktifkan!', {
+        //   body: 'Kamu sekarang akan menerima notifikasi dari Berbagi Cerita.',
+        //   icon: '/ShareYourStory/images/icon-192x192.png'
+        // });
+
         registration.showNotification('Notifikasi Diaktifkan!', {
           body: 'Kamu sekarang akan menerima notifikasi dari Berbagi Cerita.',
-          icon: '/ShareYourStory/images/icon-192x192.png'
+          icon: './images/icon-192x192.png' 
         });
 
         toggleButton.textContent = 'Disable Notifications';
@@ -214,9 +219,14 @@ async function initNotificationToggleButton() {
           
           console.log('Unsubscribed and subscription removed from server.');
 
+          // registration.showNotification('Notifikasi Dimatikan', {
+          //   body: 'Kamu tidak akan lagi menerima notifikasi.',
+          //   icon: '/ShareYourStory/images/icon-192x192.png'
+          // });
+
           registration.showNotification('Notifikasi Dimatikan', {
             body: 'Kamu tidak akan lagi menerima notifikasi.',
-            icon: '/ShareYourStory/images/icon-192x192.png'
+            icon: './images/icon-192x192.png' 
           });
         }
         
@@ -246,16 +256,20 @@ async function swRegister() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register(
-      '/ShareYourStory/service-worker.js',
-      {
-        scope: '/ShareYourStory/'
-      }
-    );
+    //PAKAI LAGI KALAU ERROR DI DEPLOY
+    // const registration = await navigator.serviceWorker.register(
+    //   '/ShareYourStory/service-worker.js',
+    //   {
+    //     scope: '/ShareYourStory/'
+    //   }
+    // );
+    // console.log('Service worker registration succeeded:', registration);
+
+    // initNotificationToggleButton();
+
+    const registration = await navigator.serviceWorker.register('./service-worker.js');
     console.log('Service worker registration succeeded:', registration);
-
     initNotificationToggleButton();
-
   } catch (error) {
     console.error('Service worker registration failed:', error);
   }
